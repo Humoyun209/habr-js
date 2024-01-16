@@ -59,7 +59,7 @@ const AllFilters = () => {
              </div>
 
              <div>
-                <div className="text-[17px] text-[#464646] font-bold">Компания  </div>
+                <div className="text-[17px] text-[#464646] font-bold">Компания </div>
                 <div>
                     <input className="mt-3" type="checkbox" name="" id="" />
                     <label className='ml-2' htmlFor="showed">Аккредитованные ИТ-компании </label>

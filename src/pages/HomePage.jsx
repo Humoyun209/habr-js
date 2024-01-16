@@ -1,4 +1,4 @@
-import Pagination from "../components/Pagination";
+import Pagination from "../components/vacancies/Pagination";
 import AllFilters from "../components/filters/AllFilters";
 import MainFilter from "../components/filters/MainFilter";
 import VacanciesList from "../components/vacancies/VacancyList";

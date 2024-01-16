@@ -2,6 +2,8 @@ import '../../styles.css'
 import nots from '../../assets/nots.png'
 import email from '../../assets/email.png'
 import profile from '../../assets/my.jpg'
+import { NavLink } from 'react-router-dom';
+import './link.css'
 
 function Header() {
     return ( 
@@ -9,14 +11,14 @@ function Header() {
             <div className='mx-auto max-w-[1200px] flex justify-between py-[20px] items-center'>
                 <nav> 
                     <ul className=' flex gap-[20px] items-center justify-center text-[16px]'>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Вакансии</a></li>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Специалисты</a></li>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Эксперты</a></li>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Компании</a></li>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Рейтинг</a></li>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Зарплаты</a></li>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Образование</a></li>
-                        <li><a className='text-gray-500 hover:text-[#222]' href="">Журнал</a></li>
+                        <li><NavLink className="link" to="/">Вакансии</NavLink></li>
+                        <li><NavLink className="link" to="/specials">Специалисты</NavLink></li>
+                        <li><NavLink className="link" to="/eksperts">Эксперты</NavLink></li>
+                        <li><NavLink className="link" to="/companies">Компании</NavLink></li>
+                        <li><NavLink className="link" to="/rankings">Рейтинг</NavLink></li>
+                        <li><NavLink className="link" to="/sales">Зарплаты</NavLink></li>
+                        <li><NavLink className="link" to="/education">Образование</NavLink></li>
+                        <li><NavLink className="link" to="/journal">Журнал</NavLink></li>
                     </ul>
                 </nav>
                 <div className=' flex gap-[20px] items-center'>

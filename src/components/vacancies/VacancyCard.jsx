@@ -3,6 +3,7 @@ import fillFavorite from "../../assets/favorite-fill.png";
 import nullFavorite from "../../assets/favorite-null.png";
 import checkMark from "../../assets/check.png";
 import { useState } from "react";
+import Tags from "../UI/Tags";
 
 const VacancyCard = () => {
   const tags = [
@@ -17,7 +18,7 @@ const VacancyCard = () => {
     "FastAPI",
   ];
 
-  const cities = ['Санкт-Петербург', 'Минск', 'Нижний Новгород']
+  const formats = ["Бэкенд разработчик", "Старший (Senior)", 'Санкт-Петербург', 'Минск', 'Нижний Новгород', 'Можно удалённо', 'Полный рабочий день']
   const [favorite, setFavorite] = useState(nullFavorite);
   return (
     <div className="flex gap-5 bg-white py-5 px-3 text-[#464646]">
@@ -34,22 +35,11 @@ const VacancyCard = () => {
         </div>
         <a className=" hover:underline text-[20px] font-bold" href="#">Middle Python-разрабочик (Django/Backend)</a>
         <div>
-          <span>{ cities.map(city => (
-            <span key={city}><a  className="hover:underline" href="#">{city}</a>, </span>
-          )) }</span>
-          <span> • </span>
-
-          <a className="hover:underline" href="#">Можно удалённо • </a>
-          <a className="hover:underline" href="#">Полный рабочий день</a>
+          <Tags tags={formats} sep=", " />
         </div>
         <div className="text-[#68c07b] font-semibold">от 100 000 до 150 000 ₽</div>
         <div className="mt-2">
-          <span>
-            <a className="hover:underline" href="#">Бэкенд разработчик</a>, <a className="hover:underline" href="#">Старший (Senior)</a> • </span>
-          {tags.map((tag) => (
-            <span key={tag}><a className="hover:underline" href="#">{tag}</a> • </span>
-          ))}
-          <span key={"Celery"}><a className="hover:underline" href="#">Celery</a></span>
+          <Tags tags={tags} sep=" • "/>
         </div>
       </div>
       <div className="flex flex-col justify-between">
