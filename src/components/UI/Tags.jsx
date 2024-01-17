@@ -5,7 +5,7 @@ const Tags = ({tags, sep}) => {
     const formattedTags = tags.map((tag, index) => (
         <span key={index}>
           <Link
-            className=" hover:underline"
+            className=" hover:underline text-primary"
             to={tag}
           >{tag}</Link>
           {index < tags.length - 1 && sep}

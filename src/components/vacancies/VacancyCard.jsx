@@ -4,6 +4,7 @@ import nullFavorite from "../../assets/favorite-null.png";
 import checkMark from "../../assets/check.png";
 import { useState } from "react";
 import Tags from "../UI/Tags";
+import { Link } from "react-router-dom";
 
 const VacancyCard = () => {
   const tags = [
@@ -33,7 +34,7 @@ const VacancyCard = () => {
             <img width={"20px"} src={checkMark} alt="" />
           </span>
         </div>
-        <a className=" hover:underline text-[20px] font-bold" href="#">Middle Python-разрабочик (Django/Backend)</a>
+        <Link to='vacancy/1' className="hover:underline text-[20px] font-bold">Middle Python-разрабочик (Django/Backend)</Link>
         <div>
           <Tags tags={formats} sep=", " />
         </div>
