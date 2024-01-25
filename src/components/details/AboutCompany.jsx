@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import companyImage from "../../company-images/company2.png"
+import companyImage from "../../assets/company-images/company2.png"
 import check from '../../assets/check.png'
 
 const CompanyAbout = () => {

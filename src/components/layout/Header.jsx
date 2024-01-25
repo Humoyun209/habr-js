@@ -5,11 +5,16 @@ import profile from "../../assets/my.jpg";
 import { Link, NavLink } from "react-router-dom";
 import "./link.css";
 import Button from "../UI/Button";
+import useAuth from '../../hooks/use-auth'
+import DropDown from "./DropDown";
+import { useState } from "react";
 
 function Header() {
-  const isAutenticated = false;
+  const { isAuth } = useAuth()
+  const [open, setOpen] = useState(false)
   return (
-    <header className="shadow-sm bg-white">
+    <>
+      <header className="shadow-sm bg-white">
       <div className="mx-auto max-w-[1200px] flex justify-between py-[20px] items-center">
         <nav>
           <ul className=" flex gap-[20px] items-center justify-center text-[16px]">
@@ -55,7 +60,7 @@ function Header() {
             </li>
           </ul>
         </nav>
-        {isAutenticated ? (
+        {isAuth ? (
           <div className=" flex gap-[20px] items-center">
             <a href="">
               <img width="24px" src={nots} alt="" />
@@ -63,20 +68,25 @@ function Header() {
             <a href="">
               <img width="24px" src={email} alt="" />
             </a>
-            <a href="">
+            <span onClick={() => setOpen(!open)} className=" cursor-pointer">
               <img
                 className="rounded-[50%]"
                 width="30px"
                 src={profile}
                 alt=""
               />
-            </a>
+            </span>
           </div>
         ) : (
           <Link to="/login"><Button>Войти</Button></Link>
         )}
       </div>
     </header>
+      <div className="max-w-[1200px] mx-auto flex justify-end">
+        <DropDown open={open} setOpen={setOpen}/>
+      </div>
+    </>
+    
   );
 }
 

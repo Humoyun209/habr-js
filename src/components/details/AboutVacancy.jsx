@@ -1,4 +1,3 @@
-import fillFavorite from "../../assets/favorite-fill.png";
 import nullFavorite from "../../assets/favorite-null.png";
 
 import vk from "../../assets/vk.png"

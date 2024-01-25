@@ -1,4 +1,4 @@
-import companyImage from "../../company-images/company1.jpg";
+import companyImage from "../../assets/company-images/company1.jpg";
 import fillFavorite from "../../assets/favorite-fill.png";
 import nullFavorite from "../../assets/favorite-null.png";
 import checkMark from "../../assets/check.png";

@@ -2,6 +2,7 @@ import CompanyAbout from "../components/details/AboutCompany"
 import AboutVacancy from "../components/details/AboutVacancy"
 import HeaderDetail from "../components/details/HeaderDetail"
 import ResponseSection from "../components/details/ResponseSection"
+import DropDown from "../components/layout/DropDown"
 
 const DetailVacancyPage = () => {
     return (
