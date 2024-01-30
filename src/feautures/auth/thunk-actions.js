@@ -34,3 +34,19 @@ export const registerThunkAction = createAsyncThunk(
         return result.data
     }
 )
+
+
+export const profileThunkAction = createAsyncThunk(
+    'auth/profile',
+    async (_, { getState }) => {
+        const result = await axios.get('http://127.0.0.1:8000/users/profile',
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getState().auth.access_token}`
+                }
+            }
+        )
+        return result.data
+    }
+)

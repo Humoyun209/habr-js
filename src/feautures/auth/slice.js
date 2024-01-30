@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunkAction, registerThunkAction } from "./thunk-actions";
+import { loginThunkAction, profileThunkAction, registerThunkAction } from "./thunk-actions";
 
 
 const initialState = {
@@ -17,8 +17,8 @@ export const authSlice = createSlice({
     name: '@@auth-slice',
     initialState: initialState,
     reducers: {
-        LogOutAction: (state) => {
-            state.isAuth = null
+        LogOutAction: () => {
+            return initialState
         }
     },
     extraReducers: (builder) => {
@@ -38,6 +38,13 @@ export const authSlice = createSlice({
         })
         .addCase(registerThunkAction.rejected, (state) => {
             state.error = "Error on Sign Up"
+        })
+        .addCase(profileThunkAction.fulfilled, (state, { payload }) => {
+            state.user.username = payload.username
+            state.user.email = payload.email
+        })
+        .addCase(profileThunkAction.rejected, (state, { payload }) => {
+            state.error = "Error on get Profile"
         })
     }
 })

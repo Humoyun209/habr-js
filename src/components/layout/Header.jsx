@@ -8,10 +8,13 @@ import Button from "../UI/Button";
 import useAuth from '../../hooks/use-auth'
 import DropDown from "./DropDown";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeOpenDropdown } from "../../feautures/layout/layout-slice";
 
 function Header() {
   const { isAuth } = useAuth()
-  const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
+  const openDrop = useSelector(state => state.dropdown)
   return (
     <>
       <header className="shadow-sm bg-white">
@@ -68,8 +71,9 @@ function Header() {
             <a href="">
               <img width="24px" src={email} alt="" />
             </a>
-            <span onClick={() => setOpen(!open)} className=" cursor-pointer">
+            <span className=" cursor-pointer">
               <img
+                onClick={() => !openDrop && dispatch(changeOpenDropdown())}
                 className="rounded-[50%]"
                 width="30px"
                 src={profile}
@@ -83,7 +87,7 @@ function Header() {
       </div>
     </header>
       <div className="max-w-[1200px] mx-auto flex justify-end">
-        <DropDown open={open} setOpen={setOpen}/>
+        <DropDown />
       </div>
     </>
     
