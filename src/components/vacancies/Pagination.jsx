@@ -15,10 +15,11 @@ const PaginationButton = ({ paddings, isActive, next, back, children, setCurrent
     })
     return (
       <span
+
         onClick={handleChange}
         className={`${
           isActive === true ?  active  : ""
-        } ${paddings} text-[16px] cursor-pointer font-semibold hover:text-[white] hover:bg-[#5677fc] hover:rounded-[50%]`}
+        } ${paddings} text-[16px] cursor-pointer font-semibold hover:text-[white] hover:bg-[#5677fc] hover:rounded-[50%] transition-paginateButton duration-300`}
       >
         {children}
       </span>
