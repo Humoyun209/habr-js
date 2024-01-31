@@ -1,11 +1,13 @@
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginThunkAction } from "../feautures/auth/thunk-actions";
 import { useState } from "react";
 import useAuth from "../hooks/use-auth";
 
 const LoginPage = () => {
+  const location = useLocation()
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ const LoginPage = () => {
       )
       .unwrap()
       .then(() => {
-        navigate('/')
+        !location.state?.path ? navigate('/') : navigate(location.state.path)
         toast.success("Вы успешно авторизовались!")
       })
       .catch(() => {
