@@ -164,6 +164,7 @@ export default {
       blue: '#5677fc',
       bg: '#f3f3f3',
       inputBg: "#ebebeb",
+      inputBgFocus: "#f2f2f2",
       cardBg: "#f7f7f7",
     }),
     columns: {

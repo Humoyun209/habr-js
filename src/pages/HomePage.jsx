@@ -2,6 +2,7 @@ import Pagination from "../components/vacancies/Pagination";
 import AllFilters from "../components/filters/AllFilters";
 import MainFilter from "../components/filters/MainFilter";
 import VacanciesList from "../components/vacancies/VacancyList";
+import VacanciesCompany from "../components/layout/VacanciesCompany";
 
 function HomePage() {
     
@@ -14,6 +15,9 @@ function HomePage() {
             </div>
             <div className="col-span-4">
                 <AllFilters />
+                <div className="mt-5">
+                    <VacanciesCompany />
+                </div>
             </div>
         </div>
 
