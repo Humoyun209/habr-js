@@ -10,6 +10,8 @@ import DetailVacancyPage from "./pages/DetailVacancyPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RedirectProvider from "./hoc/RedirectProvider";
+import CompanyAbout from "./components/details/AboutCompany";
+import CreateCompany from "./pages/CreateCompany";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route path="register/" element={<RegisterPage />} />
+      <Route path="company/" element={<CreateCompany />}/>
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )

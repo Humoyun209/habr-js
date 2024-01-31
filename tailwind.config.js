@@ -163,6 +163,8 @@ export default {
       green: '#68c07b',
       blue: '#5677fc',
       bg: '#f3f3f3',
+      inputBg: "#ebebeb",
+      cardBg: "#f7f7f7",
     }),
     columns: {
       auto: 'auto',
