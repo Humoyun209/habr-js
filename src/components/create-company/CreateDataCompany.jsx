@@ -12,7 +12,7 @@ const CreateDataCompany = () => {
         setAbout(data)
     }
     return (
-        <form className=" bg-white py-8 pl-5 pr-20 flex flex-col gap-8 my-5" method="post">
+        <div className=" bg-white py-8 pl-5 pr-20 flex flex-col gap-8 my-5">
             <span className=" font-semibold text-[18px]">Карточка компании</span>
             <hr />
             <div className="flex flex-col gap-2 text-primary">
@@ -47,7 +47,7 @@ const CreateDataCompany = () => {
             </div>
 
             <Button type="submit">Создать компанию</Button>
-        </form>
+        </div>
     )
 }
 
