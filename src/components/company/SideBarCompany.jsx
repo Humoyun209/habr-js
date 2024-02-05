@@ -13,8 +13,8 @@ const SideBarCompany = () => {
                 </span>
                 <p className=" text-secondary text-[14px] text-center">Международная компания, специализирующаяся на консалтинге, технологических услугах и аутсорсинге</p>
                 <div className=" flex justify-center gap-2 items-center">
-                    <button className="font-semibold text-[12px] px-4 py-2 bg-myGreen text-white rounded-[5px] border-none">Подписаться</button>
-                    <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] hover:bg-blue hover:text-white">Хочу тут работать</button>
+                    <button className="font-semibold text-[12px] px-4 py-2 bg-myGreen text-white rounded-[5px] border-none hover:bg-[#466d1d] transition duration-500 ease-in-out">Подписаться</button>
+                    <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Хочу тут работать</button>
                 </div>
             </div>
             <div className="flex flex-col gap-4">

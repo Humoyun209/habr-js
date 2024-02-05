@@ -13,8 +13,6 @@ const CreateCompanyPage = () => {
 
   const {access_token} = useAuth()
 
-  console.log(access_token)
-
   const [createCompany] = useCreateCompanyMutation();
 
   const handleAboutChange = (event, editorData) => {

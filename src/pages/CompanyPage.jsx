@@ -1,3 +1,5 @@
+import CreateBanner from "../components/company/CreateBanner"
+import DataCompany from "../components/company/DataCompany"
 import SideBarCompany from "../components/company/SideBarCompany"
 
 const CompanyPage = () => {
@@ -6,8 +8,9 @@ const CompanyPage = () => {
             <div className="col-span-4">
                 <SideBarCompany />
             </div>
-            <div className="col-span-8">
-
+            <div className="col-span-8 flex flex-col gap-5">
+                <CreateBanner />
+                <DataCompany />
             </div>
         </div>
     )

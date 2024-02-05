@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import Select from "react-select";
 import { useState } from "react";
 import { useGetCitiesQuery } from "../../feautures/create-company/actions";
+import { Controller, useForm } from "react-hook-form";
 
 const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
 
@@ -13,6 +14,10 @@ const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
         value: city.id,
         label: city.name
     }))
+
+    const {handleSubmit, register, control, formState: {errors}} = useForm({
+        mode: "onBlur"
+    })
     
     return (
         <div className=" bg-white py-8 pl-5 pr-20 flex flex-col gap-8 my-5">
@@ -22,7 +27,29 @@ const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Название компании *</span>
                 <span className=" text-secondary text-[14px]">Укажите, как будет отображаться название компании для пользователей.</span>
-                <Input name="title" type="text" />
+                <Controller
+                    name="title"
+                    control={control}
+                    rules={{
+                        required: true,
+                        maxLength: {
+                            value: 40,
+                            message: "Длина превесила 40 символов"
+                        }
+                    }}
+                    render={({field, fieldState: {error}}) => {
+                        return (
+                            <>
+                                <Input {...field} />
+                                {
+                                    error?.type === 'required' && <div className="h-[40px] mt-1 text-red-500">* Поле обязателен к заполнению</div> ||
+                                    error?.type === 'maxLength' && <div className="h-[40px] mt-1 text-red-500">* {error?.message}</div>
+                                }
+                            </>
+                        )
+                    }}
+                />
+                
             </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Сайт компании *</span>
