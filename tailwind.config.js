@@ -166,6 +166,7 @@ export default {
       inputBg: "#ebebeb",
       inputBgFocus: "#f2f2f2",
       cardBg: "#f7f7f7",
+      myGreen: '#64c178'
     }),
     columns: {
       auto: 'auto',

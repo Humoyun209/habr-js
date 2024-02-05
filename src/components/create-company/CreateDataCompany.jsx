@@ -1,24 +1,28 @@
 import Input from "../UI/Input"
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useState } from "react";
 import Button from "../UI/Button";
+import Select from "react-select";
+import { useState } from "react";
+import { useGetCitiesQuery } from "../../feautures/create-company/actions";
 
-const CreateDataCompany = () => {
-    const [about, setAbout] = useState('')
+const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
 
-    const handleAboutChange = (event, editorData) => {
-        const data = editorData.getData()
-        setAbout(data)
-    }
+    const {data: fetchCities = [], isLoading} = useGetCitiesQuery()
+    const cities = fetchCities.map(city => ({
+        value: city.id,
+        label: city.name
+    }))
+    
     return (
         <div className=" bg-white py-8 pl-5 pr-20 flex flex-col gap-8 my-5">
+            {isLoading && <h1>Loading...</h1>}
             <span className=" font-semibold text-[18px]">Карточка компании</span>
             <hr />
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Название компании *</span>
                 <span className=" text-secondary text-[14px]">Укажите, как будет отображаться название компании для пользователей.</span>
-                <Input name="span" type="text" />
+                <Input name="title" type="text" />
             </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Сайт компании *</span>
@@ -28,7 +32,12 @@ const CreateDataCompany = () => {
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Телефон для соискателей *</span>
                 <span className=" text-secondary text-[14px]">Укажите номер, по которому специалисты могут связаться с вашей компанией.</span>
-                <Input name="span" type="text"  placeholder="Например: +7 (123) 456-78-90"/>
+                <Input name="phone" type="text"  placeholder="Например: +7 (123) 456-78-90"/>
+            </div>
+            <div className="flex flex-col gap-2 text-primary">
+                <span className="font-semibold">Email для соискателей *</span>
+                <span className=" text-secondary text-[14px]">Укажите Email, по которому можно вам написать</span>
+                <Input name="email" type="email"  placeholder="Email вашей компании"/>
             </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">О компании *</span>
@@ -43,9 +52,16 @@ const CreateDataCompany = () => {
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Город *</span>
                 <span className=" text-secondary text-[14px]">Укажите где находится ваша компания</span>
-                <Input name="url" type="text" />
+                <Select 
+                    classNamePrefix="my-select"
+                    options={cities}
+                    defaultValue={city}
+                    onChange={setCity}
+                    isSearchable
+                    placeholder=""
+                    isLoading={isLoading}
+                />
             </div>
-
             <Button type="submit">Создать компанию</Button>
         </div>
     )

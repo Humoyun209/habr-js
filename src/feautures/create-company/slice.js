@@ -10,13 +10,3 @@ const initialState = {
     aboutCompany: null,
     urlCompany: null
 }
-
-
-export const companySlice = createSlice({
-    name: "company/slice",
-    initialState: initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase()
-    }
-})
