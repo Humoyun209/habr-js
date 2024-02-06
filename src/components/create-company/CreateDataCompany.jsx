@@ -6,18 +6,15 @@ import Select from "react-select";
 import { useState } from "react";
 import { useGetCitiesQuery } from "../../feautures/create-company/actions";
 import { Controller, useForm } from "react-hook-form";
+import ErrorMessage from "../UI/ErrorMessage";
 
-const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
+const CreateDataCompany = ({handleAboutChange, about, control}) => {
 
     const {data: fetchCities = [], isLoading} = useGetCitiesQuery()
     const cities = fetchCities.map(city => ({
         value: city.id,
         label: city.name
     }))
-
-    const {handleSubmit, register, control, formState: {errors}} = useForm({
-        mode: "onBlur"
-    })
     
     return (
         <div className=" bg-white py-8 pl-5 pr-20 flex flex-col gap-8 my-5">
@@ -29,6 +26,7 @@ const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
                 <span className=" text-secondary text-[14px]">Укажите, как будет отображаться название компании для пользователей.</span>
                 <Controller
                     name="title"
+                    defaultValue=""
                     control={control}
                     rules={{
                         required: true,
@@ -37,34 +35,73 @@ const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
                             message: "Длина превесила 40 символов"
                         }
                     }}
-                    render={({field, fieldState: {error}}) => {
-                        return (
+                    render={({field, fieldState: {error}}) => 
                             <>
                                 <Input {...field} />
                                 {
-                                    error?.type === 'required' && <div className="h-[40px] mt-1 text-red-500">* Поле обязателен к заполнению</div> ||
-                                    error?.type === 'maxLength' && <div className="h-[40px] mt-1 text-red-500">* {error?.message}</div>
+                                    error?.type === 'required' && <ErrorMessage /> ||
+                                    error?.type === 'maxLength' && <ErrorMessage message={error?.message}/>
                                 }
                             </>
-                        )
-                    }}
+                    }
                 />
                 
             </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Сайт компании *</span>
                 <span className=" text-secondary text-[14px]">Укажите ссылку на сайт или одну из соцсетей компании. Ссылка должна начинаться с http:// или https://.</span>
-                <Input name="url" type="text" />
+                <Controller
+                    name="url"
+                    defaultValue=""
+                    control={control}
+                    rules={{
+                        required: true
+                    }}
+                    render={({field, fieldState: {error}}) => <>
+                        <Input {...field} />
+                        {
+                            error?.type === 'required' && <ErrorMessage />
+                        }
+                    </>}
+                />
+                
             </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Телефон для соискателей *</span>
                 <span className=" text-secondary text-[14px]">Укажите номер, по которому специалисты могут связаться с вашей компанией.</span>
-                <Input name="phone" type="text"  placeholder="Например: +7 (123) 456-78-90"/>
+                <Controller
+                    name="phone"
+                    defaultValue=""
+                    control={control} 
+                    rules={{
+                        required: true
+                    }}
+                    render={({field, fieldState: {error, }}) => <>
+                        <Input {...field } placeholder="Например: +7 (123) 456-78-90" />
+                        {
+                            error?.type === 'required' && <ErrorMessage />
+                        }
+                    </>}
+                />
             </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Email для соискателей *</span>
                 <span className=" text-secondary text-[14px]">Укажите Email, по которому можно вам написать</span>
-                <Input name="email" type="email"  placeholder="Email вашей компании"/>
+                <Controller
+                    name="email"
+                    defaultValue=""
+                    control={control} 
+                    rules={{
+                        required: true
+                    }}
+                    render={({field, fieldState: {error, }}) => <>
+                        <Input {...field}  placeholder="Email вашей компании"/>
+                        {
+                            error?.type === 'required' && <ErrorMessage />
+                        }
+                    </>}
+                />
+                
             </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">О компании *</span>
@@ -79,14 +116,25 @@ const CreateDataCompany = ({handleAboutChange, about, city, setCity}) => {
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Город *</span>
                 <span className=" text-secondary text-[14px]">Укажите где находится ваша компания</span>
-                <Select 
-                    classNamePrefix="my-select"
-                    options={cities}
-                    defaultValue={city}
-                    onChange={setCity}
-                    isSearchable
-                    placeholder=""
-                    isLoading={isLoading}
+                <Controller
+                    name="city"
+                    control={control} 
+                    rules={{
+                        required: true
+                    }}
+                    render={({field, fieldState: {error }}) => <>
+                        <Select 
+                            {...field}
+                            classNamePrefix="my-select"
+                            options={cities}
+                            isSearchable
+                            placeholder=""
+                            isLoading={isLoading}
+                        />
+                        {
+                            error?.type === 'required' && <ErrorMessage />
+                        }
+                    </>}
                 />
             </div>
             <Button type="submit">Создать компанию</Button>

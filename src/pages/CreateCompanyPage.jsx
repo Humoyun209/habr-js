@@ -5,11 +5,11 @@ import { useState } from "react";
 import { useCreateCompanyMutation } from "../feautures/create-company/actions";
 import { toast } from "react-toastify";
 import useAuth from '../hooks/use-auth'
+import { useForm } from "react-hook-form";
 
 const CreateCompanyPage = () => {
   const [about, setAbout] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
-  const [city, setCity] = useState(null)
 
   const {access_token} = useAuth()
 
@@ -19,6 +19,8 @@ const CreateCompanyPage = () => {
     const data = editorData.getData();
     setAbout(data);
   };
+
+  const {handleSubmit, control} = useForm({mode: "onBlur"})
 
   const handleChangeImage = (event) => {
     const photo = event.target.files[0];
@@ -60,14 +62,16 @@ const CreateCompanyPage = () => {
         className=" col-span-8"
         method="post"
         name="createCompany"
-        onSubmit={handleCreateCompany}
+        onSubmit={handleSubmit((data) => console.log(data))}
       >
-        <CreateLogo handleChangeImage={handleChangeImage} logoUrl={logoUrl} />
+        <CreateLogo 
+          handleChangeImage={handleChangeImage} 
+          logoUrl={logoUrl} 
+        />
         <CreateDataCompany
           handleAboutChange={handleAboutChange}
           about={about}
-          city={city}
-          setCity={setCity}
+          control={control}
         />
       </form>
       <div className="col-span-4">
