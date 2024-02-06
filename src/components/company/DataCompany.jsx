@@ -3,7 +3,7 @@ import vacancyImg from "../../assets/vacancy.png"
 import Button from "../UI/Button"
 import { Link } from "react-router-dom"
 
-const DataCompany = () => {
+const DataCompany = ({data}) => {
 
     const tags = [
             "SQL",
@@ -45,7 +45,7 @@ const DataCompany = () => {
                     <span className="text-primary font-semibold">О компании</span>
                     <Link className="text-blue font-semibold">Редактировать</Link>
                 </div><hr />
-                <span className="text-secondary text-[20px] font-semibold">Нет данные о компании</span>
+                <span dangerouslySetInnerHTML={{__html: data.about_company}} className="text-secondary"></span>
             </div>
             <div className="bg-white py-4 px-6 flex-col flex gap-5">
                 <span className="text-primary font-semibold">Вакансии компании «Bell Integrator»</span><hr />

@@ -25,7 +25,7 @@ const CreateDataCompany = ({handleAboutChange, about, control}) => {
                 <span className="font-semibold">Название компании *</span>
                 <span className=" text-secondary text-[14px]">Укажите, как будет отображаться название компании для пользователей.</span>
                 <Controller
-                    name="title"
+                    name="name"
                     defaultValue=""
                     control={control}
                     rules={{

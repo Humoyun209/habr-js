@@ -27,7 +27,7 @@ export const router = createBrowserRouter(
           </RedirectProvider>
         }
       />
-      <Route path="company/:id" element={<CompanyPage />} />
+      <Route path="company/:companyId" element={<CompanyPage />} />
       <Route path="register/" element={<RegisterPage />} />
       <Route 
         path="company/new/" 

@@ -2,13 +2,14 @@ import defaultCompany from "../../assets/company-images/default-company.png"
 import checkerImage from "../../assets/check.png"
 import profileImage from "../../assets/my.jpg"
 
-const SideBarCompany = () => {
+const SideBarCompany = ({data}) => {
+    const logoUrl = `http://127.0.0.1:8000/${data.photo}`
     return (
         <div className="bg-white p-4 flex flex-col gap-10">
             <div className=" flex flex-col gap-8 justify-center items-center">
-                <img width="150px" src={defaultCompany} alt="" />
+                <img width="150px" src={logoUrl || defaultCompany} alt="" />
                 <span className=" flex justify-center items-center gap-1">
-                    <p className="text-[18px] text-primary font-semibold">Яндекс</p>
+                    <p className="text-[18px] text-primary font-semibold">{data.name}</p>
                     <img width="16px" src={checkerImage} alt="" />
                 </span>
                 <p className=" text-secondary text-[14px] text-center">Международная компания, специализирующаяся на консалтинге, технологических услугах и аутсорсинге</p>
@@ -20,7 +21,7 @@ const SideBarCompany = () => {
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-center ">
                     <span className="text-primary font-semibold">Вакансии</span>
-                    <span className="text-blue font-semibold">245</span>
+                    <span className="text-blue font-semibold">{data.vacancies.length}</span>
                 </div>
                 <hr />
                 <div className="flex justify-between items-center ">
@@ -30,7 +31,7 @@ const SideBarCompany = () => {
                 <hr />
                 <div className="flex justify-between items-center ">
                     <span className="text-primary font-semibold">Подписчики</span>
-                    <span className="text-blue font-semibold">533 / 1111</span>
+                    <span className="text-blue font-semibold">{data.followers.length}</span>
                 </div>
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
@@ -40,14 +41,14 @@ const SideBarCompany = () => {
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
                     <span className="text-primary font-semibold">Контакты</span>
-                    <span className="text-secondary text-[14px]">Телефон: +7 (909) 111-11-11</span>
-                    <span className="text-secondary text-[14px]">Email: h.ahmedov209@gmail.com</span>
+                    <span className="text-secondary text-[14px]">Телефон: {data.phone}</span>
+                    <span className="text-secondary text-[14px]">Email: {data.email}</span>
                 </div>
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
                     <span className="text-primary font-semibold">Ссылки</span>
                     <div>
-                        <span className="text-secondary text-[14px]">Телеграм: </span><a href="https://t.me/humoyun209" className="text-blue text-[14px] font-semibold">@humoyun209</a>
+                        <span className="text-secondary text-[14px]">Телеграм: </span><a href={data.url} className="text-blue text-[14px] font-semibold">{data.url}</a>
                     </div>
                 </div>
                 <hr />
@@ -56,8 +57,8 @@ const SideBarCompany = () => {
                     <div className=" flex items-center gap-5">
                         <img className="w-[36px] h-[36px] rounded-[50%]" src={profileImage} alt="" />
                         <div className=" flex flex-col items-start">
-                            <span className="text-primary font-semibold">Ахмедова Хумоюн</span>
-                            <span className="text-secondary text-[14px]">Lead HR manager/IT Recruiter</span>
+                            <span className="text-primary font-semibold">{data.owner.username}</span>
+                            <span className="text-secondary text-[14px]">{data.owner.email}</span>
                         </div> 
                     </div>
                 </div>

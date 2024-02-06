@@ -3,70 +3,53 @@ import CreateLogo from "../components/create-company/CreateLogo";
 import VacanciesCompany from "../components/layout/VacanciesCompany";
 import { useState } from "react";
 import { useCreateCompanyMutation } from "../feautures/create-company/actions";
-import { toast } from "react-toastify";
 import useAuth from '../hooks/use-auth'
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const CreateCompanyPage = () => {
+  const navigate = useNavigate()
+
   const [about, setAbout] = useState("");
-  const [logoUrl, setLogoUrl] = useState("");
-
-  const {access_token} = useAuth()
-
-  const [createCompany] = useCreateCompanyMutation();
-
   const handleAboutChange = (event, editorData) => {
     const data = editorData.getData();
     setAbout(data);
   };
 
+  const [logo, setLogo] = useState(null);
+
+  const {access_token} = useAuth()
+  const [createCompany] = useCreateCompanyMutation();
+
   const {handleSubmit, control} = useForm({mode: "onBlur"})
 
-  const handleChangeImage = (event) => {
-    const photo = event.target.files[0];
-    setLogoUrl(URL.createObjectURL(photo));
-  };
+  const handleSendForm = async (data) => {
+    const company = new FormData()
 
-  const handleCreateCompany = async (event) => {
-    event.preventDefault();
-    const title = event.target.title.value;
-    const url = event.target.url.value;
-    const phone = event.target.phone.value;
-    const email = event.target.email.value;
-    const logo = event.target.logo.files[0];
-    if (
-      title &&
-      email &&
-      (url.startsWith("http://") || url.startsWith("https://")) &&
-      city &&
-      phone &&
-      logo
-    ) {
-      const data = new FormData();
-      data.append("name", title);
-      data.append("url", url);
-      data.append("city_id", city.value);
-      data.append("phone", phone);
-      data.append("email", email);
-      data.append("about_company", about);
-      data.append("logo", logo);
-      const result = await createCompany({data, access_token}).unwrap();
-      console.log(result)
-    } else {
-      toast.error("Ошибка при введении данных!");
+    for (let attr in data) {
+      if (attr == 'city') {
+        company.append('city_id', data.city.value)
+        continue
+      }
+      company.append(attr, data[attr])
     }
-  };
+    logo ? company.append('logo', logo) : ""
+    about ? company.append('about_company', about) : ""
+    const result = await createCompany({company, access_token})
+    navigate(`/company/${result.data.id}`)
+  }
+
   return (
     <div className="max-w-[1200px] mx-auto grid grid-cols-12 my-5 gap-5">
       <form
         className=" col-span-8"
         method="post"
         name="createCompany"
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit((data) => handleSendForm(data))}
       >
-        <CreateLogo 
-          handleChangeImage={handleChangeImage} 
-          logoUrl={logoUrl} 
+        <CreateLogo  
+          logo={logo}
+          setLogo={setLogo}
         />
         <CreateDataCompany
           handleAboutChange={handleAboutChange}
