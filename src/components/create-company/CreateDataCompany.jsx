@@ -3,9 +3,8 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Button from "../UI/Button";
 import Select from "react-select";
-import { useState } from "react";
 import { useGetCitiesQuery } from "../../feautures/create-company/actions";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import ErrorMessage from "../UI/ErrorMessage";
 
 const CreateDataCompany = ({handleAboutChange, about, control}) => {
@@ -123,7 +122,7 @@ const CreateDataCompany = ({handleAboutChange, about, control}) => {
                         required: true
                     }}
                     render={({field, fieldState: {error }}) => <>
-                        <Select 
+                        <Select
                             {...field}
                             classNamePrefix="my-select"
                             options={cities}

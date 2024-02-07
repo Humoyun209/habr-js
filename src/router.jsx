@@ -13,12 +13,14 @@ import RedirectProvider from "./hoc/RedirectProvider";
 import CreateCompanyPage from "./pages/CreateCompanyPage";
 import AuthProvider from "./hoc/AuthProvider";
 import CompanyPage from "./pages/CompanyPage";
+import CreateVacancyPage from "./pages/CreateVacancyPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<HomePage />} />
       <Route path="vacancy/:id/" element={<DetailVacancyPage />} />
+      <Route path="vacancy/create" element={<CreateVacancyPage />} />
       <Route
         path="login/"
         element={

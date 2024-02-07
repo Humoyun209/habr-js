@@ -1,9 +1,11 @@
 import defaultCompany from "../../assets/company-images/default-company.png"
 import checkerImage from "../../assets/check.png"
 import profileImage from "../../assets/my.jpg"
+import useAuth from "../../hooks/use-auth"
 
 const SideBarCompany = ({data}) => {
-    const logoUrl = `http://127.0.0.1:8000/${data.photo}`
+    const logoUrl = `http://127.0.0.1:8000/${data.logo}`
+    const {user} = useAuth()
     return (
         <div className="bg-white p-4 flex flex-col gap-10">
             <div className=" flex flex-col gap-8 justify-center items-center">
@@ -15,7 +17,12 @@ const SideBarCompany = ({data}) => {
                 <p className=" text-secondary text-[14px] text-center">Международная компания, специализирующаяся на консалтинге, технологических услугах и аутсорсинге</p>
                 <div className=" flex justify-center gap-2 items-center">
                     <button className="font-semibold text-[12px] px-4 py-2 bg-myGreen text-white rounded-[5px] border-none hover:bg-[#466d1d] transition duration-500 ease-in-out">Подписаться</button>
-                    <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Хочу тут работать</button>
+                    {
+                        user.username == data.owner.username ? 
+                        <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Кабинет компании</button> :
+                        <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Хочу тут работать</button>
+                    }
+                    
                 </div>
             </div>
             <div className="flex flex-col gap-4">

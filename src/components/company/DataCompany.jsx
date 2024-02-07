@@ -1,49 +1,53 @@
 import Tags from "../UI/Tags"
 import vacancyImg from "../../assets/vacancy.png"
 import Button from "../UI/Button"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
+import useAuth from "../../hooks/use-auth"
 
 const DataCompany = ({data}) => {
-
+    const {user} = useAuth()
+    const location = useLocation()
+    console.log(location)
     const tags = [
-            "SQL",
-            "Java",
-            "PostgreSQL",
-            "REST",
-            "Git",
-            "Java Spring Framework",
-            "Docker",
-            "Apache Kafka",
-            "BPMN",
-            "Hibernate",
-            "JavaScript",
-            "Linux",
-            "UML",
-            "React",
-            "XML",
-            "Spring Boot",
-            "Kubernetes",
-            "Python",
-            "SOAP",
-            "TypeScript",
-            "Системный анализ",
-            "Базы данных",
-            "Высоконагруженные системы",
-            "CSS",
-            "RabbitMQ",
-            "C++",
-            "C#",
-            ".NET",
-            "Анализ требований",
-            "HTML"
-        ]
+        "SQL",
+        "Java",
+        "PostgreSQL",
+        "REST",
+        "Git",
+        "Java Spring Framework",
+        "Docker",
+        "Apache Kafka",
+        "BPMN",
+        "Hibernate",
+        "JavaScript",
+        "Linux",
+        "UML",
+        "React",
+        "XML",
+        "Spring Boot",
+        "Kubernetes",
+        "Python",
+        "SOAP",
+        "TypeScript",
+        "Системный анализ",
+        "Базы данных",
+        "Высоконагруженные системы",
+        "CSS",
+        "RabbitMQ",
+        "C++",
+        "C#",
+        ".NET",
+        "Анализ требований",
+        "HTML"
+    ]
     
     return (
         <>
             <div className="bg-white py-4 px-6 flex-col flex gap-5">
                 <div className="flex justify-between">
                     <span className="text-primary font-semibold">О компании</span>
-                    <Link className="text-blue font-semibold">Редактировать</Link>
+                    { data.owner.username === user.username && <Link className="text-blue font-semibold">Редактировать</Link>} 
+                    
                 </div><hr />
                 <span dangerouslySetInnerHTML={{__html: data.about_company}} className="text-secondary"></span>
             </div>
@@ -53,7 +57,7 @@ const DataCompany = ({data}) => {
                     <img src={vacancyImg} alt="" />
                     <span className=" text-primary fon-semibold">Нет вакансий</span>
                     <span className=" text-secondary">У компании нет открытых вакансий</span>
-                    <Button>Добавить новую вакансию</Button>
+                    { data.owner.username === user.username && <Button>Добавить новую вакансию</Button> }
                 </div>
             </div>
             <div className="bg-white py-4 px-6 flex-col flex gap-5">

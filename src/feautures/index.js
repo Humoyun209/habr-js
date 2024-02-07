@@ -3,6 +3,7 @@ import { dumpState, loadState } from "./storage";
 import { authSlice } from "./auth/slice";
 import { dropdownSlice } from "./layout/layout-slice";
 import { companyAPI } from "./create-company/actions";
+import { vacancyApi } from "./vacancies/actions";
 
 
 export const getStore = () => {
@@ -11,7 +12,8 @@ export const getStore = () => {
         reducer: {
             auth: authSlice.reducer,
             dropdown: dropdownSlice.reducer,
-            [companyAPI.reducerPath]: companyAPI.reducer
+            [companyAPI.reducerPath]: companyAPI.reducer,
+            [vacancyApi.reducerPath]: vacancyApi.reducer
         },
         devTools: true,
         middleware: (getDefaultMiddleware) =>
