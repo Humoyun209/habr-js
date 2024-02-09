@@ -724,6 +724,10 @@ video {
   width: 36px;
 }
 
+.w-\[50\%\] {
+  width: 50%;
+}
+
 .w-\[50px\] {
   width: 50px;
 }
@@ -801,6 +805,10 @@ video {
   gap: 2.5rem;
 }
 
+.gap-16 {
+  gap: 4rem;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
@@ -835,14 +843,6 @@ video {
 
 .gap-\[5px\] {
   gap: 5px;
-}
-
-.gap-28 {
-  gap: 7rem;
-}
-
-.gap-16 {
-  gap: 4rem;
 }
 
 .rounded {
@@ -1166,6 +1166,10 @@ video {
   font-size: 20px;
 }
 
+.text-\[21px\] {
+  font-size: 21px;
+}
+
 .text-\[22px\] {
   font-size: 22px;
 }
@@ -1206,6 +1210,10 @@ video {
 
 .not-italic {
   font-style: normal;
+}
+
+.leading-\[17px\] {
+  line-height: 17px;
 }
 
 .leading-\[20px\] {

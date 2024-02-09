@@ -1,11 +1,33 @@
 import { Controller, useForm } from 'react-hook-form'
+import Button from '../components/UI/Button'
 import Input from '../components/UI/Input'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import Select from 'react-select'
-import { useGetCitiesQuery } from '../feautures/create-company/actions'
+import makeAnimated from 'react-select/animated'
+import '../styles/custom-select.scss'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { useState } from 'react'
 
 const CreateVacancyPage = () => {
-    const { handleSubmit, control } = useForm({ mode: 'onBlur' })
+    const { handleSubmit, control, reset } = useForm({ mode: 'onBlur' })
+    const animatedComponent = makeAnimated()
+
+    const [condition, setCondition] = useState('')
+    const [bonuse, setBonuse] = useState('')
+    const [expections, setExpections] = useState('')
+
+    const baseCKEChange = (editorData, setState) => {
+        const data = editorData.getData()
+        setState(data)
+    }
+
+    console.log(bonuse)
+
+    const workloads = [
+        { value: 0, label: 'Полный рабочий день' },
+        { value: 1, label: 'Неполный рабочий день' },
+    ]
 
     const levels = [
         { value: 0, label: 'Стажер (Intern)' },
@@ -45,7 +67,7 @@ const CreateVacancyPage = () => {
 
     return (
         <div className=" grid grid-cols-12 gap-5 max-w-[1200px] mx-auto my-5">
-            <div className=" col-span-3"></div>
+            <div className=" col-span-3">{/* <SideBarCompany /> */}</div>
             <form
                 className=" col-span-9 flex flex-col gap-5"
                 method="POST"
@@ -57,7 +79,7 @@ const CreateVacancyPage = () => {
                     <h1 className=" text-primary text-[32px] leading-[28px] font-bold">
                         Новая вакансия
                     </h1>
-                    <h5 className=" text-primary font-semibold">Название вакансии *</h5>
+                    <h5 className=" text-primary font-bold">Название вакансии *</h5>
                     <p className=" text-secondary text-[14px]">
                         Дайте вакансии простое и понятное название, чтобы соискатели смогли легко
                         найти ее в поиске (например «JavaScript разработчик»). Не пишите в этом поле
@@ -72,7 +94,7 @@ const CreateVacancyPage = () => {
                         }}
                         render={({ field, fieldState: { error } }) => (
                             <>
-                                <Input {...field} />
+                                <Input placeholder="Название вакансии..." {...field} />
                                 {error?.type === 'required' && <ErrorMessage />}
                             </>
                         )}
@@ -80,7 +102,7 @@ const CreateVacancyPage = () => {
                 </div>
                 <div className="bg-white py-5 px-10 flex flex-col gap-16">
                     <div className="flex flex-col gap-4">
-                        <h5 className=" text-primary font-semibold">Требуемая квалификация *</h5>
+                        <h5 className=" text-primary font-bold">Требуемая квалификация *</h5>
                         <p className=" text-secondary text-[14px]">
                             Выберите профессиональный уровень будущего сотрудника. Кстати, для
                             стажерских вакансий действует скидка 80% на все услуги, включая
@@ -95,15 +117,16 @@ const CreateVacancyPage = () => {
                                 <Select
                                     {...field}
                                     options={levels}
-                                    classNamePrefix="city-select"
+                                    classNamePrefix="custom-select"
                                     placeholder="Выберите квалификацию..."
                                     isSearchable
+                                    components={animatedComponent}
                                 />
                             )}
                         />
                     </div>
                     <div className="flex flex-col gap-4">
-                        <h5 className=" text-primary font-semibold">
+                        <h5 className=" text-primary font-bold">
                             Требуемые профессиональные навыки *
                         </h5>
                         <p className=" text-secondary text-[14px]">
@@ -119,13 +142,97 @@ const CreateVacancyPage = () => {
                                 <Select
                                     {...field}
                                     options={skillsArray}
-                                    classNamePrefix="city-select"
-                                    placeholder="Выберите квалификацию..."
+                                    classNamePrefix="custom-select"
+                                    placeholder="Выберите навыки..."
                                     isSearchable
                                     isMulti
+                                    components={animatedComponent}
                                 />
                             )}
                         />
+                    </div>
+                </div>
+
+                <div id="conditions" className="bg-white py-5 px-10 flex flex-col gap-16">
+                    <div className="flex flex-col gap-4">
+                        <h2 className="text-[21px] leading-[17px] text-primary font-bold mb-5">
+                            Условия
+                        </h2>
+                        <h4 className=" text-primary font-bold">Заработная плата</h4>
+                        <p className=" text-secondary text-[14px]">
+                            Обратите внимание, наличие зарплаты в вакансии увеличивает число
+                            откликов на неё, при этом неважен размер зарплаты, а важно само её
+                            указание. Кроме того, учтите, мы транслируем в наших соцсетях только
+                            вакансии с зарплатами.
+                        </p>
+                        <div className="flex items-center gap-5 text-primary text-[14px]">
+                            <span>От</span>
+                            <Input type="text" />
+                            <span>До</span>
+                            <Input type="text" />
+                            <span className=" w-full">Рублей на руки</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                        <h5 className=" text-primary font-bold">Удаленное сотрудничество</h5>
+                        <label className=" text-[16px] text-primary flex gap-3" htmlFor="">
+                            <input type="checkbox" /> Рассматривается
+                        </label>
+                    </div>
+                    <div className="flex flex-col gap-4 w-[50%]">
+                        <h5 className=" text-primary font-bold">Тип занятости</h5>
+                        <Select
+                            classNamePrefix="custom-select"
+                            options={workloads}
+                            placeholder="Выберите"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                        <h4 className=" text-primary font-bold">Ожидания от кандидата * </h4>
+                        <p className=" text-secondary text-[14px]">
+                            Опишите вашего идеального кандидата: его или ее знания, хард- и
+                            софт-скиллы, образование, опыт работы, другие важные для вас моменты.
+                        </p>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            data={expections}
+                            onChange={(event, editorData) =>
+                                baseCKEChange(editorData, setExpections)
+                            }
+                        />
+                    </div>
+                    <div className="flex flex-col gap-4">
+                        <h4 className=" text-primary font-bold">Условия работы * </h4>
+                        <p className=" text-secondary text-[14px]">
+                            Расскажите про график работы, возможность удаленки, соцпакет, бургеры по
+                            пятницам или корпоративный спортзал.
+                        </p>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            data={condition}
+                            onChange={(event, editorData) =>
+                                baseCKEChange(editorData, setCondition)
+                            }
+                        />
+                    </div>
+                    <div className="flex flex-col gap-4">
+                        <h4 className=" text-primary font-bold">Бонусы * </h4>
+                        <p className=" text-secondary text-[14px]">
+                            Расскажите, какие материальные или нематериальные бонусы к зарплате есть
+                            в вашей компании: премии, скидки, опционы, акции, возмещение оплаты за
+                            обучение и другое.
+                        </p>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            data={bonuse}
+                            onChange={(event, editorData) => baseCKEChange(editorData, setBonuse)}
+                        />
+                        <Button
+                            style={{ padding: '10px 20px', marginLeft: 'auto', marginTop: '50px' }}
+                        >
+                            Сохранить
+                        </Button>
                     </div>
                 </div>
             </form>

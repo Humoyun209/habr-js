@@ -20,12 +20,16 @@ export const companyAPI = createApi({
             query: () => '/cities'
         }),
         getCompany: builder.query({
-            query: ({companyId, access_token}) => ({
-                url: `/${companyId}`,
-                headers: {
-                    Authorization: `Bearer ${access_token}`
+            query: ({companyId, access_token}) => {
+                const headers = {};
+                if (access_token) {
+                    headers.Authorization = access_token
                 }
-            })
+                return {
+                    url: `/${companyId}`,
+                    headers: headers
+                }
+            }
         })
     })
 })

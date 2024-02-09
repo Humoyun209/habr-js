@@ -1,0 +1,62 @@
+@keyframes multiValueAnimate {
+    0% {
+        opacity: 0;
+        width: 0%;
+    }
+    100% {
+        opacity: 1;
+        width: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+  
+
+.custom-select {
+    &__control {
+        background-color: #ebebeb !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    &__indicator {
+        color: #464646 !important;
+    }
+    &__indicator-separator {
+        display: none;
+    }
+    &__menu {
+        background-color: #ebebeb !important;
+        animation: fadeIn .3s ease-in-out !important;
+    }
+    &__option {
+        color: #464646;
+        &:hover {
+            background-color: #5677fc!important;
+            color: white;
+        }
+        &--is-selected {
+            background-color: #5677fc!important;
+            color: white;
+        }
+    }
+    &__multi-value {
+        background-color: #bad4f8!important;
+        animation: multiValueAnimate .3s linear !important;
+
+        &__remove {
+            color: #464646 !important;
+            background-color: inherit !important;
+
+            &:hover {
+                color: #464646 !important;
+            }
+        }
+    }
+}

@@ -4,7 +4,7 @@ import profileImage from "../../assets/my.jpg"
 import useAuth from "../../hooks/use-auth"
 
 const SideBarCompany = ({data}) => {
-    const logoUrl = `http://127.0.0.1:8000/${data.logo}`
+    const logoUrl = `http://127.0.0.1:8000/${data.company.logo}`
     const {user} = useAuth()
     return (
         <div className="bg-white p-4 flex flex-col gap-10">
@@ -18,7 +18,7 @@ const SideBarCompany = ({data}) => {
                 <div className=" flex justify-center gap-2 items-center">
                     <button className="font-semibold text-[12px] px-4 py-2 bg-myGreen text-white rounded-[5px] border-none hover:bg-[#466d1d] transition duration-500 ease-in-out">Подписаться</button>
                     {
-                        user.username == data.owner.username ? 
+                        data.is_owner ? 
                         <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Кабинет компании</button> :
                         <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Хочу тут работать</button>
                     }
@@ -28,7 +28,7 @@ const SideBarCompany = ({data}) => {
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-center ">
                     <span className="text-primary font-semibold">Вакансии</span>
-                    <span className="text-blue font-semibold">{data.vacancies.length}</span>
+                    <span className="text-blue font-semibold">{data.company.vacancies.length}</span>
                 </div>
                 <hr />
                 <div className="flex justify-between items-center ">
@@ -38,7 +38,7 @@ const SideBarCompany = ({data}) => {
                 <hr />
                 <div className="flex justify-between items-center ">
                     <span className="text-primary font-semibold">Подписчики</span>
-                    <span className="text-blue font-semibold">{data.followers.length}</span>
+                    <span className="text-blue font-semibold">{data.company.followers.length}</span>
                 </div>
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
@@ -49,13 +49,13 @@ const SideBarCompany = ({data}) => {
                 <div className="flex flex-col flex-start gap-2">
                     <span className="text-primary font-semibold">Контакты</span>
                     <span className="text-secondary text-[14px]">Телефон: {data.phone}</span>
-                    <span className="text-secondary text-[14px]">Email: {data.email}</span>
+                    <span className="text-secondary text-[14px]">Email: {data.company.email}</span>
                 </div>
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
                     <span className="text-primary font-semibold">Ссылки</span>
                     <div>
-                        <span className="text-secondary text-[14px]">Телеграм: </span><a href={data.url} className="text-blue text-[14px] font-semibold">{data.url}</a>
+                        <span className="text-secondary text-[14px]">Телеграм: </span><a href={data.company.url} className="text-blue text-[14px] font-semibold">{data.url}</a>
                     </div>
                 </div>
                 <hr />
@@ -64,8 +64,8 @@ const SideBarCompany = ({data}) => {
                     <div className=" flex items-center gap-5">
                         <img className="w-[36px] h-[36px] rounded-[50%]" src={profileImage} alt="" />
                         <div className=" flex flex-col items-start">
-                            <span className="text-primary font-semibold">{data.owner.username}</span>
-                            <span className="text-secondary text-[14px]">{data.owner.email}</span>
+                            <span className="text-primary font-semibold">{data.company.owner.username}</span>
+                            <span className="text-secondary text-[14px]">{data.company.owner.email}</span>
                         </div> 
                     </div>
                 </div>
