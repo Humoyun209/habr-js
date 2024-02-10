@@ -1,14 +1,24 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const vacancyApi = createApi({
     reducerPath: 'vacancyApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://127.0.0.1:8000/vacancies'}),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000/vacancy' }),
     endpoints: builder => ({
-        getLevels: builder.query({
-            query: () => '/levels'
-        })
-    })
+        getTags: builder.query({
+            query: () => '/tags',
+        }),
+        createVacancy: builder.mutation({
+            query: ({ body, access_token }) => ({
+                url: '/create',
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                    type: 'application/json',
+                },
+                body: body,
+            }),
+        }),
+    }),
 })
 
-export const {useGetLevelsQuery} = vacancyApi
+export const { useGetTagsQuery, useCreateVacancyMutation } = vacancyApi

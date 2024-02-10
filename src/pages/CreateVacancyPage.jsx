@@ -8,21 +8,41 @@ import '../styles/custom-select.scss'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useState } from 'react'
+import { useCreateVacancyMutation, useGetTagsQuery } from '../feautures/vacancies/actions'
+import { useParams } from 'react-router-dom'
+import useAuth from '../hooks/use-auth'
 
 const CreateVacancyPage = () => {
-    const { handleSubmit, control, reset } = useForm({ mode: 'onBlur' })
+    const { handleSubmit, control, register } = useForm({ mode: 'onBlur' })
+    const [addVacancy] = useCreateVacancyMutation()
     const animatedComponent = makeAnimated()
+    const { companyId } = useParams()
+    const { access_token } = useAuth()
 
-    const [condition, setCondition] = useState('')
-    const [bonuse, setBonuse] = useState('')
-    const [expections, setExpections] = useState('')
+    const [conditions, setConditions] = useState('')
+    const [bonuses, setBonuses] = useState('')
+    const [expectation, setExpectation] = useState('')
 
     const baseCKEChange = (editorData, setState) => {
         const data = editorData.getData()
         setState(data)
     }
 
-    console.log(bonuse)
+    const handleCreate = async data => {
+        const vacancy = { ...data }
+        vacancy.conditions = conditions
+        vacancy.bonuses = bonuses
+        vacancy.expectation = expectation
+        vacancy.tags = data.tags.map(tag => tag.value)
+        vacancy.workload = data.workload.label
+        vacancy.level = data.level.label
+        vacancy.min_salary = parseFloat(data.min_salary)
+        vacancy.max_salary = parseFloat(data.max_salary)
+        vacancy.company_id = parseInt(companyId)
+        const result = await addVacancy({ body: vacancy, access_token })
+        console.log(vacancy)
+        console.log(result)
+    }
 
     const workloads = [
         { value: 0, label: 'Полный рабочий день' },
@@ -37,33 +57,12 @@ const CreateVacancyPage = () => {
         { value: 4, label: 'Ведущий (Lead)' },
     ]
 
-    const skillsArray = [
-        { value: 0, label: 'Git' },
-        { value: 1, label: 'JavaScript' },
-        { value: 2, label: 'SQL' },
-        { value: 3, label: 'HTML' },
-        { value: 4, label: 'Python' },
-        { value: 5, label: 'CSS' },
-        { value: 6, label: 'PostgreSQL' },
-        { value: 7, label: 'Linux' },
-        { value: 8, label: 'ООП' },
-        { value: 9, label: 'Управление проектами' },
-        { value: 10, label: 'React' },
-        { value: 11, label: 'MySQL' },
-        { value: 12, label: 'Docker' },
-        { value: 13, label: 'Java' },
-        { value: 14, label: 'Английский язык' },
-        { value: 15, label: 'PHP' },
-        { value: 16, label: 'Управление людьми' },
-        { value: 17, label: 'TypeScript' },
-        { value: 18, label: 'Адаптивная верстка' },
-        { value: 19, label: 'C#' },
-        { value: 20, label: 'Node.js' },
-        { value: 21, label: 'Adobe Photoshop' },
-        { value: 22, label: 'Веб-разработка' },
-        { value: 23, label: 'Подбор специалистов' },
-        { value: 24, label: 'Ведение переговоров' },
-    ]
+    const { data: fetchTags = [], isLoading } = useGetTagsQuery()
+
+    const tags = fetchTags.map(tag => ({
+        value: tag.id,
+        label: tag.name,
+    }))
 
     return (
         <div className=" grid grid-cols-12 gap-5 max-w-[1200px] mx-auto my-5">
@@ -71,9 +70,7 @@ const CreateVacancyPage = () => {
             <form
                 className=" col-span-9 flex flex-col gap-5"
                 method="POST"
-                onSubmit={handleSubmit(data => {
-                    console.log(data)
-                })}
+                onSubmit={handleSubmit(handleCreate)}
             >
                 <div className=" bg-white py-5 px-10 flex flex-col gap-4">
                     <h1 className=" text-primary text-[32px] leading-[28px] font-bold">
@@ -87,14 +84,15 @@ const CreateVacancyPage = () => {
                         названию позиции.
                     </p>
                     <Controller
-                        name="name"
+                        name="title"
+                        defaultValue=""
                         control={control}
                         rules={{
                             required: true,
                         }}
                         render={({ field, fieldState: { error } }) => (
                             <>
-                                <Input placeholder="Название вакансии..." {...field} />
+                                <Input {...field} placeholder="Название вакансии..." />
                                 {error?.type === 'required' && <ErrorMessage />}
                             </>
                         )}
@@ -110,18 +108,23 @@ const CreateVacancyPage = () => {
                             сеньора, можно почитать в разделе хелпа «Специализации и квалификации».
                         </p>
                         <Controller
-                            name="qualification"
+                            name="level"
                             control={control}
-                            rules={{}}
+                            rules={{
+                                required: true,
+                            }}
                             render={({ field, fieldState: { error } }) => (
-                                <Select
-                                    {...field}
-                                    options={levels}
-                                    classNamePrefix="custom-select"
-                                    placeholder="Выберите квалификацию..."
-                                    isSearchable
-                                    components={animatedComponent}
-                                />
+                                <>
+                                    <Select
+                                        {...field}
+                                        options={levels}
+                                        classNamePrefix="custom-select"
+                                        placeholder="Выберите квалификацию..."
+                                        isSearchable
+                                        components={animatedComponent}
+                                    />
+                                    {error?.type && <ErrorMessage />}
+                                </>
                             )}
                         />
                     </div>
@@ -137,11 +140,14 @@ const CreateVacancyPage = () => {
                         <Controller
                             name="tags"
                             control={control}
-                            rules={{}}
-                            render={({ field, fieldState: { error } }) => (
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field }) => (
                                 <Select
                                     {...field}
-                                    options={skillsArray}
+                                    isLoading={isLoading}
+                                    options={tags}
                                     classNamePrefix="custom-select"
                                     placeholder="Выберите навыки..."
                                     isSearchable
@@ -167,24 +173,70 @@ const CreateVacancyPage = () => {
                         </p>
                         <div className="flex items-center gap-5 text-primary text-[14px]">
                             <span>От</span>
-                            <Input type="text" />
+                            <Controller
+                                name="min_salary"
+                                control={control}
+                                rules={{
+                                    maxLength: {
+                                        value: 10,
+                                    },
+                                }}
+                                render={({ field, fieldState: { error } }) => (
+                                    <>
+                                        <Input {...field} type="number" />
+                                        {error?.type === 'maxLength' && (
+                                            <ErrorMessage message="Максималная длина до 10" />
+                                        )}
+                                    </>
+                                )}
+                            />
+
                             <span>До</span>
-                            <Input type="text" />
+                            <Controller
+                                name="max_salary"
+                                control={control}
+                                rules={{
+                                    maxLength: {
+                                        value: 10,
+                                    },
+                                }}
+                                render={({ field, fieldState: { error } }) => (
+                                    <>
+                                        <Input {...field} type="number" />
+                                        {error?.type === 'maxLength' && (
+                                            <ErrorMessage message="Максималная длина до 10" />
+                                        )}
+                                    </>
+                                )}
+                            />
                             <span className=" w-full">Рублей на руки</span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-4">
                         <h5 className=" text-primary font-bold">Удаленное сотрудничество</h5>
                         <label className=" text-[16px] text-primary flex gap-3" htmlFor="">
-                            <input type="checkbox" /> Рассматривается
+                            <input {...register('is_remote')} type="checkbox" /> Рассматривается
                         </label>
                     </div>
                     <div className="flex flex-col gap-4 w-[50%]">
                         <h5 className=" text-primary font-bold">Тип занятости</h5>
-                        <Select
-                            classNamePrefix="custom-select"
-                            options={workloads}
-                            placeholder="Выберите"
+                        <Controller
+                            name="workload"
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field, fieldState: { error } }) => (
+                                <>
+                                    <Select
+                                        {...field}
+                                        classNamePrefix="custom-select"
+                                        options={workloads}
+                                        placeholder="Выберите"
+                                    />
+                                    {error?.type === 'required' && <ErrorMessage />}
+                                </>
+                            )}
                         />
                     </div>
 
@@ -196,9 +248,9 @@ const CreateVacancyPage = () => {
                         </p>
                         <CKEditor
                             editor={ClassicEditor}
-                            data={expections}
+                            data={expectation}
                             onChange={(event, editorData) =>
-                                baseCKEChange(editorData, setExpections)
+                                baseCKEChange(editorData, setExpectation)
                             }
                         />
                     </div>
@@ -210,9 +262,9 @@ const CreateVacancyPage = () => {
                         </p>
                         <CKEditor
                             editor={ClassicEditor}
-                            data={condition}
+                            data={conditions}
                             onChange={(event, editorData) =>
-                                baseCKEChange(editorData, setCondition)
+                                baseCKEChange(editorData, setConditions)
                             }
                         />
                     </div>
@@ -225,8 +277,8 @@ const CreateVacancyPage = () => {
                         </p>
                         <CKEditor
                             editor={ClassicEditor}
-                            data={bonuse}
-                            onChange={(event, editorData) => baseCKEChange(editorData, setBonuse)}
+                            data={bonuses}
+                            onChange={(event, editorData) => baseCKEChange(editorData, setBonuses)}
                         />
                         <Button
                             style={{ padding: '10px 20px', marginLeft: 'auto', marginTop: '50px' }}

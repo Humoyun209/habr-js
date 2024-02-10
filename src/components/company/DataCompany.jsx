@@ -1,13 +1,10 @@
 import Tags from '../UI/Tags'
 import vacancyImg from '../../assets/vacancy.png'
 import Button from '../UI/Button'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-// import useAuth from "../../hooks/use-auth"
+import { Link, useNavigate } from 'react-router-dom'
 
 const DataCompany = ({ data }) => {
     const navigate = useNavigate()
-    const location = useLocation()
-    console.log(location)
     const tags = [
         'SQL',
         'Java',
@@ -68,7 +65,7 @@ const DataCompany = ({ data }) => {
                     {data.is_owner && (
                         <Button
                             onClick={() =>
-                                navigate('/vacancy/create', {
+                                navigate(`/company/${data.company.id}/vacancy/create`, {
                                     state: { companyId: data.company.id },
                                 })
                             }

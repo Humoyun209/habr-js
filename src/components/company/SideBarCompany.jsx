@@ -1,11 +1,9 @@
-import defaultCompany from "../../assets/company-images/default-company.png"
-import checkerImage from "../../assets/check.png"
-import profileImage from "../../assets/my.jpg"
-import useAuth from "../../hooks/use-auth"
+import defaultCompany from '../../assets/company-images/default-company.png'
+import checkerImage from '../../assets/check.png'
+import profileImage from '../../assets/my.jpg'
 
-const SideBarCompany = ({data}) => {
+const SideBarCompany = ({ data }) => {
     const logoUrl = `http://127.0.0.1:8000/${data.company.logo}`
-    const {user} = useAuth()
     return (
         <div className="bg-white p-4 flex flex-col gap-10">
             <div className=" flex flex-col gap-8 justify-center items-center">
@@ -14,15 +12,23 @@ const SideBarCompany = ({data}) => {
                     <p className="text-[18px] text-primary font-semibold">{data.name}</p>
                     <img width="16px" src={checkerImage} alt="" />
                 </span>
-                <p className=" text-secondary text-[14px] text-center">Международная компания, специализирующаяся на консалтинге, технологических услугах и аутсорсинге</p>
+                <p className=" text-secondary text-[14px] text-center">
+                    Международная компания, специализирующаяся на консалтинге, технологических
+                    услугах и аутсорсинге
+                </p>
                 <div className=" flex justify-center gap-2 items-center">
-                    <button className="font-semibold text-[12px] px-4 py-2 bg-myGreen text-white rounded-[5px] border-none hover:bg-[#466d1d] transition duration-500 ease-in-out">Подписаться</button>
-                    {
-                        data.is_owner ? 
-                        <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Кабинет компании</button> :
-                        <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">Хочу тут работать</button>
-                    }
-                    
+                    <button className="font-semibold text-[12px] px-4 py-2 bg-myGreen text-white rounded-[5px] border-none hover:bg-[#466d1d] transition duration-500 ease-in-out">
+                        Подписаться
+                    </button>
+                    {data.is_owner ? (
+                        <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">
+                            Кабинет компании
+                        </button>
+                    ) : (
+                        <button className="font-semibold text-[12px] px-4 py-2 border-[1px] border-blue text-blue rounded-[5px] transition-all duration-500 ease-in-out hover:bg-blue hover:text-white">
+                            Хочу тут работать
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="flex flex-col gap-4">
@@ -43,7 +49,9 @@ const SideBarCompany = ({data}) => {
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
                     <span className="text-primary font-semibold">Местоположение</span>
-                    <span className="text-secondary text-[14px]">Беларусь, Минск, Беларусь, Минск, ул. Фабрициуса, д. 8б, корп. 1</span>
+                    <span className="text-secondary text-[14px]">
+                        Беларусь, Минск, Беларусь, Минск, ул. Фабрициуса, д. 8б, корп. 1
+                    </span>
                 </div>
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
@@ -55,24 +63,34 @@ const SideBarCompany = ({data}) => {
                 <div className="flex flex-col flex-start gap-2">
                     <span className="text-primary font-semibold">Ссылки</span>
                     <div>
-                        <span className="text-secondary text-[14px]">Телеграм: </span><a href={data.company.url} className="text-blue text-[14px] font-semibold">{data.url}</a>
+                        <span className="text-secondary text-[14px]">Телеграм: </span>
+                        <a href={data.company.url} className="text-blue text-[14px] font-semibold">
+                            {data.url}
+                        </a>
                     </div>
                 </div>
                 <hr />
                 <div className="flex flex-col flex-start gap-2">
                     <span className="text-primary font-semibold">Контактные лица</span>
                     <div className=" flex items-center gap-5">
-                        <img className="w-[36px] h-[36px] rounded-[50%]" src={profileImage} alt="" />
+                        <img
+                            className="w-[36px] h-[36px] rounded-[50%]"
+                            src={profileImage}
+                            alt=""
+                        />
                         <div className=" flex flex-col items-start">
-                            <span className="text-primary font-semibold">{data.company.owner.username}</span>
-                            <span className="text-secondary text-[14px]">{data.company.owner.email}</span>
-                        </div> 
+                            <span className="text-primary font-semibold">
+                                {data.company.owner.username}
+                            </span>
+                            <span className="text-secondary text-[14px]">
+                                {data.company.owner.email}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     )
 }
-
 
 export default SideBarCompany

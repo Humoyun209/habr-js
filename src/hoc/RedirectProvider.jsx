@@ -1,10 +1,10 @@
-import { Navigate } from "react-router-dom"
-import useAuth from "../hooks/use-auth"
+import { Navigate } from 'react-router-dom'
+import useAuth from '../hooks/use-auth'
 
-const RedirectProvider = ({children}) => {
+const RedirectProvider = ({ children }) => {
     const { isAuth } = useAuth()
     if (isAuth) {
-        return <Navigate to='/' replace />
+        return <Navigate to="/" replace />
     }
     return children
 }
