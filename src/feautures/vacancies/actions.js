@@ -18,7 +18,23 @@ export const vacancyApi = createApi({
                 body: body,
             }),
         }),
+        getVacancies: builder.query({
+            query: () => ({
+                url: '/list',
+            }),
+        }),
+        getVacancy: builder.query({
+            query: ({ vacancyId }) => ({
+                url: `/${vacancyId}`,
+                keepalive: true,
+            }),
+        }),
     }),
 })
 
-export const { useGetTagsQuery, useCreateVacancyMutation } = vacancyApi
+export const {
+    useGetTagsQuery,
+    useCreateVacancyMutation,
+    useGetVacanciesQuery,
+    useGetVacancyQuery,
+} = vacancyApi
