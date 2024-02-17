@@ -29,7 +29,7 @@ const DetailVacancyPage = () => {
                         conditions={data.vacancy.conditions}
                         about={data.company.about_company}
                     />
-                    <ResponseSection />
+                    <ResponseSection companyId={data.company.id} vacancyId={data.vacancy.id} />
                 </div>
                 <div className="col-span-4">
                     <CompanyAbout
@@ -37,6 +37,7 @@ const DetailVacancyPage = () => {
                         vacancies={data.company.vacancies}
                         url={data.company.url}
                         title={data.company.name}
+                        companyId={data.company.id}
                     />
                 </div>
             </div>

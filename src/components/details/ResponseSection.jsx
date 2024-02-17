@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom'
 import Button from '../UI/Button'
 import useAuth from '../../hooks/use-auth'
+import { useRespondToVacancyMutation } from '../../feautures/vacancies/response-actions'
 
-const ResponseSection = () => {
-    const handleSubmit = event => {
+const ResponseSection = ({ companyId, vacancyId }) => {
+    const { access_token } = useAuth()
+    const [addResponse] = useRespondToVacancyMutation()
+    const handleSubmit = async event => {
         event.preventDefault()
+        const coverLetter = event.target.coverLetter.value
+        const cover_letter = coverLetter.length > 0 ? coverLetter : null
+        const result = await addResponse({ companyId, vacancyId, access_token, cover_letter })
+        console.log(result)
     }
 
     const { isAuth } = useAuth()
@@ -29,6 +36,7 @@ const ResponseSection = () => {
                             className="w-full outline-none bg-bg p-3 text-secondary"
                             rows="5"
                             defaultValue={''}
+                            name="coverLetter"
                         ></textarea>
                         <Button type="submit">Откликнуться</Button>
                     </form>

@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom'
 import check from '../../assets/check.png'
 
-const CompanyAbout = ({ logo, vacancies, url, title }) => {
+const CompanyAbout = ({ logo, vacancies, url, title, companyId }) => {
     const companyLogo = `http://127.0.0.1:8000/${logo}`
     return (
         <div className="bg-white flex px-10 flex-col gap-10 pt-[100px] pb-4">
             <div className=" flex flex-col items-center gap-2">
                 <img className="rounded-[10px] h-[150px]" width="150px" src={companyLogo} alt="" />
                 <div className="flex gap-1 items-center">
-                    <Link className="text-[18px] font-bold hover:underline" to="company/2">
+                    <Link
+                        className="text-[18px] font-bold hover:underline"
+                        to={`/company/${companyId}`}
+                    >
                         {title}
                     </Link>
                     <img className="" width={'20px'} src={check} alt="" />
@@ -23,7 +26,7 @@ const CompanyAbout = ({ logo, vacancies, url, title }) => {
             <hr />
             <div className=" flex flex-col gap-5 justify-center">
                 {vacancies.map(vacancy => (
-                    <>
+                    <div key={vacancy.id}>
                         <div className="flex gap-4 items-start ">
                             <img
                                 className=" rounded-[5px] h-[40px]"
@@ -40,7 +43,7 @@ const CompanyAbout = ({ logo, vacancies, url, title }) => {
                             </div>
                         </div>
                         <hr />
-                    </>
+                    </div>
                 ))}
 
                 <Link

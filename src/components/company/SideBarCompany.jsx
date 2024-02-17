@@ -9,7 +9,7 @@ const SideBarCompany = ({ data }) => {
             <div className=" flex flex-col gap-8 justify-center items-center">
                 <img width="150px" src={logoUrl || defaultCompany} alt="" />
                 <span className=" flex justify-center items-center gap-1">
-                    <p className="text-[18px] text-primary font-semibold">{data.name}</p>
+                    <p className="text-[18px] text-primary font-semibold">{data.company.name}</p>
                     <img width="16px" src={checkerImage} alt="" />
                 </span>
                 <p className=" text-secondary text-[14px] text-center">
