@@ -30,6 +30,7 @@ export const vacancyApi = createApi({
             }),
         }),
     }),
+    keepUnusedDataFor: 0,
 })
 
 export const {

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import profile from '../../assets/my.jpg'
+import defaultLogo from '../../assets/profile/minionLogo.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { LogOutAction } from '../../feautures/auth/slice'
 import { useEffect } from 'react'
@@ -12,7 +13,7 @@ const DropDown = () => {
     const dispatch = useDispatch()
 
     const openDrop = useSelector(state => state.dropdown)
-    const { user } = useAuth()
+    const { user, isAuth, resume } = useAuth()
 
     useEffect(
         () => () => {
@@ -50,7 +51,12 @@ const DropDown = () => {
                     className={`flex flex-col py-2 border max-w-[250px] bg-white absolute`}
                 >
                     <div className=" flex items-center justify-center gap-5 px-4 pb-4">
-                        <img className="rounded-[50%]" width="50px" src={profile} alt="" />
+                        <img
+                            className="rounded-[50%]"
+                            width="50px"
+                            src={resume ? profile : defaultLogo}
+                            alt=""
+                        />
                         <div className=" flex flex-col gap-2">
                             <span className=" font-semibold text-[18px] text-primary leading-[22px]">
                                 Anonym User
@@ -61,28 +67,34 @@ const DropDown = () => {
                         </div>
                     </div>
                     <hr />
-                    <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
-                        Личный кабинет
-                    </div>
-                    <hr />
-                    <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
-                        Избранные вакансии
-                    </div>
-                    <hr />
-                    <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
-                        Отклики на вакансии
-                    </div>
-                    <hr />
-                    <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
-                        Друзья
-                    </div>
-                    <hr />
-                    <div
-                        onClick={handleLogout}
-                        className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out"
-                    >
-                        Выход
-                    </div>
+                    {isAuth && resume && (
+                        <>
+                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                                Личный кабинет
+                            </div>
+                            <hr />
+                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                                Избранные вакансии
+                            </div>
+                            <hr />
+                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                                Отклики на вакансии
+                            </div>
+                            <hr />
+                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                                Друзья
+                            </div>
+                            <hr />
+                        </>
+                    )}
+                    {isAuth && (
+                        <div
+                            onClick={handleLogout}
+                            className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out"
+                        >
+                            Выход
+                        </div>
+                    )}
                 </motion.div>
             )}
         </AnimatePresence>

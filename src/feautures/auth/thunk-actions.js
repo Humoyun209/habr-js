@@ -26,5 +26,6 @@ export const profileThunkAction = createAsyncThunk('auth/profile', async (_, { g
             Authorization: `Bearer ${getState().auth.access_token}`,
         },
     })
+    console.log(result.data)
     return result.data
 })

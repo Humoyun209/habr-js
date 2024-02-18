@@ -7,12 +7,13 @@ import './link.css'
 import Button from '../UI/Button'
 import useAuth from '../../hooks/use-auth'
 import DropDown from './DropDown'
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeOpenDropdown } from '../../feautures/layout/layout-slice'
 
+import defaultLogo from '../../assets/profile/minionLogo.png'
+
 function Header() {
-    const { isAuth } = useAuth()
+    const { isAuth, resume } = useAuth()
     const dispatch = useDispatch()
     const openDrop = useSelector(state => state.dropdown)
     return (
@@ -76,7 +77,7 @@ function Header() {
                                     onClick={() => !openDrop && dispatch(changeOpenDropdown())}
                                     className="rounded-[50%]"
                                     width="30px"
-                                    src={profile}
+                                    src={resume ? profile : defaultLogo}
                                     alt=""
                                 />
                             </span>

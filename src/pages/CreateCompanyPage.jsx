@@ -26,7 +26,7 @@ const CreateCompanyPage = () => {
     const handleSendForm = async data => {
         const company = new FormData()
 
-        for (let attr in data) {
+        for (const attr in data) {
             if (attr == 'city') {
                 company.append('city_id', data.city.value)
                 continue

@@ -11,7 +11,7 @@ const VacanciesList = () => {
             <div className="my-5 flex flex-col gap-5">
                 {data.map(e => (
                     <VacancyCard
-                        key={e}
+                        key={e.id}
                         vacancy={e}
                         companyLogo={e.company.logo}
                         companyName={e.company.name}

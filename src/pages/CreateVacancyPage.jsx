@@ -1,3 +1,4 @@
+import { levels, workloads } from '../global'
 import { Controller, useForm } from 'react-hook-form'
 import Button from '../components/UI/Button'
 import Input from '../components/UI/Input'
@@ -43,19 +44,6 @@ const CreateVacancyPage = () => {
         console.log(vacancy)
         console.log(result)
     }
-
-    const workloads = [
-        { value: 0, label: 'Полный рабочий день' },
-        { value: 1, label: 'Неполный рабочий день' },
-    ]
-
-    const levels = [
-        { value: 0, label: 'Стажер (Intern)' },
-        { value: 1, label: 'Младший (Junior)' },
-        { value: 2, label: 'Средний (Middle)' },
-        { value: 3, label: 'Старший (Senior)' },
-        { value: 4, label: 'Ведущий (Lead)' },
-    ]
 
     const { data: fetchTags = [], isLoading } = useGetTagsQuery()
 

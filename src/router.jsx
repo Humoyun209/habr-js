@@ -11,6 +11,7 @@ import AuthProvider from './hoc/AuthProvider'
 import CompanyPage from './pages/CompanyPage'
 import CreateVacancyPage from './pages/CreateVacancyPage'
 import CompanyOwnerProvider from './hoc/CompanyOwnerProvider'
+import CreateResumePage from './pages/CreateResumePage'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -43,6 +44,7 @@ export const router = createBrowserRouter(
                     </AuthProvider>
                 }
             />
+            <Route path="/profile/personal/create" element={<CreateResumePage />} />
             <Route path="*" element={<NotFoundPage />} />
         </Route>,
     ),
