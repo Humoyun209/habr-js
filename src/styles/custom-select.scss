@@ -11,13 +11,12 @@
 
 @keyframes fadeIn {
     0% {
-      opacity: 0;
+        opacity: 0;
     }
     100% {
-      opacity: 1;
+        opacity: 1;
     }
 }
-  
 
 .custom-select {
     &__control {
@@ -33,22 +32,22 @@
     }
     &__menu {
         background-color: #ebebeb !important;
-        animation: fadeIn .3s ease-in-out !important;
+        animation: fadeIn 0.3s ease-in-out !important;
     }
     &__option {
         color: #464646;
         &:hover {
-            background-color: #5677fc!important;
+            background-color: #5677fc !important;
             color: white;
         }
         &--is-selected {
-            background-color: #5677fc!important;
+            background-color: #5677fc !important;
             color: white;
         }
     }
     &__multi-value {
-        background-color: #bad4f8!important;
-        animation: multiValueAnimate .3s linear !important;
+        background-color: #bad4f8 !important;
+        animation: multiValueAnimate 0.3s linear !important;
 
         &__remove {
             color: #464646 !important;

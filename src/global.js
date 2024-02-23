@@ -18,4 +18,37 @@ export const socials = [
     { value: 'VK', label: 'Вконтакте' },
 ]
 
+export const tags = [
+    'SQL',
+    'Java',
+    'PostgreSQL',
+    'REST',
+    'Git',
+    'Java Spring Framework',
+    'Docker',
+    'Apache Kafka',
+    'BPMN',
+    'Hibernate',
+    'JavaScript',
+    'Linux',
+    'UML',
+    'React',
+    'XML',
+    'Spring Boot',
+    'Kubernetes',
+    'Python',
+    'SOAP',
+    'TypeScript',
+    'Системный анализ',
+    'Базы данных',
+    'Высоконагруженные системы',
+    'CSS',
+    'RabbitMQ',
+    'C++',
+    'C#',
+    '.NET',
+    'Анализ требований',
+    'HTML',
+]
+
 export const baseUrl = 'http://127.0.0.1:8000'

@@ -12,6 +12,9 @@ import CompanyPage from './pages/CompanyPage'
 import CreateVacancyPage from './pages/CreateVacancyPage'
 import CompanyOwnerProvider from './hoc/CompanyOwnerProvider'
 import CreateResumePage from './pages/CreateResumePage'
+import EditResumePage from './pages/EditResumePage'
+// import CustomCard from './pages/CardComponent/CustomCard'
+import CheckResumeProvider from './hoc/CheckResumeProvider'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -44,7 +47,16 @@ export const router = createBrowserRouter(
                     </AuthProvider>
                 }
             />
-            <Route path="/profile/personal/create" element={<CreateResumePage />} />
+            <Route
+                path="/profile/personal/create"
+                element={
+                    <CheckResumeProvider>
+                        <CreateResumePage />
+                    </CheckResumeProvider>
+                }
+            />
+            <Route path="/profile/personal/edit" element={<EditResumePage />} />
+            {/* <Route path="/card" element={<CustomCard />} /> */}
             <Route path="*" element={<NotFoundPage />} />
         </Route>,
     ),

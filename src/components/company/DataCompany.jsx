@@ -3,41 +3,10 @@ import vacancyImg from '../../assets/vacancy.png'
 import Button from '../UI/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import VacancyCard from '../vacancies/VacancyCard'
+import { tags } from '../../global'
 
 const DataCompany = ({ data }) => {
     const navigate = useNavigate()
-    const tags = [
-        'SQL',
-        'Java',
-        'PostgreSQL',
-        'REST',
-        'Git',
-        'Java Spring Framework',
-        'Docker',
-        'Apache Kafka',
-        'BPMN',
-        'Hibernate',
-        'JavaScript',
-        'Linux',
-        'UML',
-        'React',
-        'XML',
-        'Spring Boot',
-        'Kubernetes',
-        'Python',
-        'SOAP',
-        'TypeScript',
-        'Системный анализ',
-        'Базы данных',
-        'Высоконагруженные системы',
-        'CSS',
-        'RabbitMQ',
-        'C++',
-        'C#',
-        '.NET',
-        'Анализ требований',
-        'HTML',
-    ]
 
     return (
         <>

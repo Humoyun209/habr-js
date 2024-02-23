@@ -5,6 +5,7 @@ import { dropdownSlice } from './layout/layout-slice'
 import { companyAPI } from './create-company/actions'
 import { vacancyApi } from './vacancies/actions'
 import { responseApi } from './vacancies/response-actions'
+import { resumeApi } from './resumes/resume-actions'
 
 export const getStore = () => {
     const persistedState = loadState()
@@ -15,6 +16,7 @@ export const getStore = () => {
             [companyAPI.reducerPath]: companyAPI.reducer,
             [vacancyApi.reducerPath]: vacancyApi.reducer,
             [responseApi.reducerPath]: responseApi.reducer,
+            [resumeApi.reducerPath]: resumeApi.reducer,
         },
         devTools: true,
         middleware: getDefaultMiddleware =>
@@ -23,7 +25,8 @@ export const getStore = () => {
             })
                 .concat(companyAPI.middleware)
                 .concat(vacancyApi.middleware)
-                .concat(responseApi.middleware),
+                .concat(responseApi.middleware)
+                .concat(resumeApi.middleware),
         preloadedState: persistedState,
     })
     store.subscribe(() => {

@@ -13,7 +13,7 @@ export const vacancyApi = createApi({
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${access_token}`,
-                    type: 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: body,
             }),

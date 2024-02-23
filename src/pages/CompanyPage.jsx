@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import CreateBanner from '../components/company/CreateBanner'
 import DataCompany from '../components/company/DataCompany'
 import SideBarCompany from '../components/company/SideBarCompany'
@@ -7,9 +7,10 @@ import useAuth from '../hooks/use-auth'
 
 const CompanyPage = () => {
     const { companyId } = useParams()
+    const location = useLocation()
     const { access_token } = useAuth()
     const { data, isLoading } = useGetCompanyQuery({ companyId, access_token })
-
+    console.log(location)
     return isLoading ? (
         <h1>Loading...</h1>
     ) : (
@@ -26,4 +27,5 @@ const CompanyPage = () => {
         )
     )
 }
+
 export default CompanyPage

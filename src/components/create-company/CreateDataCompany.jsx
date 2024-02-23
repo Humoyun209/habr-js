@@ -6,6 +6,8 @@ import Select from 'react-select'
 import { useGetCitiesQuery } from '../../feautures/create-company/actions'
 import { Controller } from 'react-hook-form'
 import ErrorMessage from '../UI/ErrorMessage'
+import { tags } from '../../global'
+import makeAnimated from 'react-select/animated'
 
 const CreateDataCompany = ({ handleAboutChange, about, control }) => {
     const { data: fetchCities = [], isLoading } = useGetCitiesQuery()
@@ -115,6 +117,17 @@ const CreateDataCompany = ({ handleAboutChange, about, control }) => {
                 </span>
                 <CKEditor editor={ClassicEditor} data={about} onChange={handleAboutChange} />
             </div>
+            <div className=" flex flex-col gap-2">
+                <span className="text-primary text-[14px] font-semibold">Укажите навыки</span>
+                <Select
+                    placeholder="Навыки"
+                    classNamePrefix="custom-select"
+                    components={makeAnimated()}
+                    isMulti
+                    isSearchable
+                    options={tags.map((tag, i) => ({ value: i, label: tag }))}
+                />
+            </div>
             <div className="flex flex-col gap-2 text-primary">
                 <span className="font-semibold">Город *</span>
                 <span className=" text-secondary text-[14px]">
@@ -130,10 +143,11 @@ const CreateDataCompany = ({ handleAboutChange, about, control }) => {
                         <>
                             <Select
                                 {...field}
-                                classNamePrefix="my-select"
+                                classNamePrefix="custom-select"
+                                components={makeAnimated()}
                                 options={cities}
                                 isSearchable
-                                placeholder=""
+                                placeholder="Город"
                                 isLoading={isLoading}
                             />
                             {error?.type === 'required' && <ErrorMessage />}

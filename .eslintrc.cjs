@@ -21,6 +21,7 @@ module.exports = {
     },
     plugins: ['react', 'prettier'],
     rules: {
+        'react/display-name': 'off',
         'no-var': 'error',
         'prefer-const': 'warn',
         'react/prop-types': 'off',

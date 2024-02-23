@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import profile from '../../assets/my.jpg'
 import defaultLogo from '../../assets/profile/minionLogo.png'
@@ -69,21 +70,33 @@ const DropDown = () => {
                     <hr />
                     {isAuth && resume && (
                         <>
-                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                            <Link
+                                to="/profile/personal/edit"
+                                className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out"
+                            >
                                 Личный кабинет
-                            </div>
+                            </Link>
                             <hr />
-                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                            <Link
+                                to="/profile/favorite-vacancies"
+                                className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out"
+                            >
                                 Избранные вакансии
-                            </div>
+                            </Link>
                             <hr />
-                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                            <Link
+                                to="/profile/responses"
+                                className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out"
+                            >
                                 Отклики на вакансии
-                            </div>
+                            </Link>
                             <hr />
-                            <div className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out">
+                            <Link
+                                to="/profile/friends"
+                                className="hover:bg-blue hover:text-white p-2 cursor-pointer transition-colors duration-200 ease-in-out"
+                            >
                                 Друзья
-                            </div>
+                            </Link>
                             <hr />
                         </>
                     )}
