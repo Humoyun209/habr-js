@@ -13,7 +13,6 @@ import CreateVacancyPage from './pages/CreateVacancyPage'
 import CompanyOwnerProvider from './hoc/CompanyOwnerProvider'
 import CreateResumePage from './pages/CreateResumePage'
 import EditResumePage from './pages/EditResumePage'
-// import CustomCard from './pages/CardComponent/CustomCard'
 import CheckResumeProvider from './hoc/CheckResumeProvider'
 
 export const router = createBrowserRouter(
@@ -42,21 +41,31 @@ export const router = createBrowserRouter(
             <Route
                 path="company/new/"
                 element={
-                    <AuthProvider>
-                        <CreateCompanyPage />
-                    </AuthProvider>
+                    // <AuthProvider>
+                    <CreateCompanyPage />
+                    // </AuthProvider>
                 }
             />
             <Route
                 path="/profile/personal/create"
                 element={
-                    <CheckResumeProvider>
-                        <CreateResumePage />
-                    </CheckResumeProvider>
+                    <AuthProvider>
+                        <CheckResumeProvider>
+                            <CreateResumePage />
+                        </CheckResumeProvider>
+                    </AuthProvider>
                 }
             />
-            <Route path="/profile/personal/edit" element={<EditResumePage />} />
-            {/* <Route path="/card" element={<CustomCard />} /> */}
+            <Route
+                path="/profile/personal/edit"
+                element={
+                    <AuthProvider>
+                        <CheckResumeProvider>
+                            <EditResumePage />
+                        </CheckResumeProvider>
+                    </AuthProvider>
+                }
+            />
             <Route path="*" element={<NotFoundPage />} />
         </Route>,
     ),

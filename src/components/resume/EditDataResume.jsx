@@ -7,11 +7,12 @@ import Input from '../UI/Input'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
-import { levels, socials, tags } from '../../global'
+import { levels, socials } from '../../global'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
-const EditDataResume = ({ resume }) => {
+const EditDataResume = ({ resume, tags }) => {
+    console.log(tags)
     const inputRef = useRef(null)
     const [pLogo, setPLogo] = useState(null)
     return (
@@ -107,8 +108,8 @@ const EditDataResume = ({ resume }) => {
                         components={makeAnimated()}
                         isMulti
                         isSearchable
-                        defaultValue={tags.map((tag, i) => ({ value: i, label: tag }))}
-                        options={tags.map((tag, i) => ({ value: i, label: tag }))}
+                        // defaultValue={tags.map((tag, i) => ({ value: i, label: tag }))}
+                        options={tags.map(tag => ({ value: tag.id, label: tag.name }))}
                     />
                 </div>
                 <div className=" flex flex-col gap-3 mt-10">

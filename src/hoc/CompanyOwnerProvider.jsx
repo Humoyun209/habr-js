@@ -1,6 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom'
 import useAuth from '../hooks/use-auth'
-import { useCheckIsOwnerQuery } from '../feautures/create-company/actions'
+import { useCheckIsOwnerQuery } from '../feautures/company/actions'
 
 const CompanyOwnerProvider = ({ children }) => {
     const { access_token } = useAuth()

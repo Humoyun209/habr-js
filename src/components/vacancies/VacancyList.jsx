@@ -1,4 +1,4 @@
-import { useGetVacanciesQuery } from '../../feautures/vacancies/actions'
+import { useGetVacanciesQuery } from '../../feautures/vacancies/vacancy-actions'
 import VacancyCard from './VacancyCard'
 
 const VacanciesList = () => {

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { LogOutAction } from './feautures/auth/slice'
 import { toast } from 'react-toastify'
 import { profileThunkAction } from './feautures/auth/thunk-actions'
+import useAuth from './hooks/use-auth'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -17,6 +18,8 @@ const App = () => {
                 toast.error(error.message)
             })
     }, [dispatch])
+
+    console.log(useAuth())
 
     return <RouterProvider router={router} />
 }

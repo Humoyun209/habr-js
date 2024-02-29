@@ -3,7 +3,7 @@ import CompanyAbout from '../components/details/AboutCompany'
 import AboutVacancy from '../components/details/AboutVacancy'
 import HeaderDetail from '../components/details/HeaderDetail'
 import ResponseSection from '../components/details/ResponseSection'
-import { useGetVacancyQuery } from '../feautures/vacancies/actions'
+import { useGetVacancyQuery } from '../feautures/vacancies/vacancy-actions'
 
 const DetailVacancyPage = () => {
     const { vacancyId } = useParams()

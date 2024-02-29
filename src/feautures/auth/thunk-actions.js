@@ -2,11 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const loginThunkAction = createAsyncThunk('auth/login', async loginData => {
-    const result = await axios.post('http://127.0.0.1:8000/users/login', loginData, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    const result = await axios.post('http://127.0.0.1:8000/users/login', loginData)
     return result.data
 })
 

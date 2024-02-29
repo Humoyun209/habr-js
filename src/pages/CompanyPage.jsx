@@ -2,7 +2,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import CreateBanner from '../components/company/CreateBanner'
 import DataCompany from '../components/company/DataCompany'
 import SideBarCompany from '../components/company/SideBarCompany'
-import { useGetCompanyQuery } from '../feautures/create-company/actions'
+import { useGetCompanyQuery } from '../feautures/company/actions'
 import useAuth from '../hooks/use-auth'
 
 const CompanyPage = () => {

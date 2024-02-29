@@ -19,6 +19,9 @@ export const companyAPI = createApi({
         getCities: builder.query({
             query: () => '/cities',
         }),
+        getTags: builder.query({
+            query: () => '/tags',
+        }),
         getCompany: builder.query({
             query: ({ companyId, access_token }) => {
                 const headers = {}
@@ -48,4 +51,5 @@ export const {
     useGetCitiesQuery,
     useGetCompanyQuery,
     useCheckIsOwnerQuery,
+    useGetTagsQuery,
 } = companyAPI

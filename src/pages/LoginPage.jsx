@@ -14,11 +14,13 @@ const LoginPage = () => {
     const [pass, setPass] = useState('')
     const [username, setUsername] = useState('')
     const { errorMessage } = useAuth()
-
     const handleLogin = event => {
         event.preventDefault()
         if (username && pass) {
-            dispatch(loginThunkAction(JSON.stringify({ username, password: pass })))
+            const formData = new FormData()
+            formData.append('username', username)
+            formData.append('password', pass)
+            dispatch(loginThunkAction(formData))
                 .unwrap()
                 .then(() => {
                     !location.state?.path ? navigate('/') : navigate(location.state.path)

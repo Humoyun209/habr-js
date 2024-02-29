@@ -9,7 +9,7 @@ import '../styles/custom-select.scss'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useState } from 'react'
-import { useCreateVacancyMutation, useGetTagsQuery } from '../feautures/vacancies/actions'
+import { useCreateVacancyMutation, useGetTagsQuery } from '../feautures/vacancies/vacancy-actions'
 import { useParams } from 'react-router-dom'
 import useAuth from '../hooks/use-auth'
 
@@ -41,7 +41,6 @@ const CreateVacancyPage = () => {
         vacancy.max_salary = parseFloat(data.max_salary)
         vacancy.company_id = parseInt(companyId)
         const result = await addVacancy({ body: vacancy, access_token })
-        console.log(vacancy)
         console.log(result)
     }
 

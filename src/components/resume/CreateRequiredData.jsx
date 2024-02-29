@@ -14,7 +14,9 @@ const CreateRequiredData = ({
     setAbout,
     about,
     baseCKEChange,
+    tags,
 }) => {
+    console.log(tags)
     return (
         <div className="flex flex-col gap-5 mt-5">
             <div className="bg-white pr-20 pl-10 py-10">
