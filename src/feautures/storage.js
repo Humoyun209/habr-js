@@ -1,4 +1,4 @@
-export const dumpState = (state) => {
+export const dumpState = state => {
     try {
         localStorage.setItem('state', JSON.stringify(state))
     } catch (error) {

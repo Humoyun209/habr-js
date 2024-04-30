@@ -5,7 +5,7 @@ const initialState = {
     access_token: null,
     error: null,
     isAuth: false,
-    resume: null,
+    resume: {},
     user: {
         email: null,
         username: null,

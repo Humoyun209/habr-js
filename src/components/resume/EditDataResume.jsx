@@ -11,13 +11,23 @@ import { levels, socials } from '../../global'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
+import { Controller, useForm } from 'react-hook-form'
+import ErrorMessage from '../UI/ErrorMessage'
+
 const EditDataResume = ({ resume, tags }) => {
-    console.log(tags)
+    const { control, handleSubmit, register } = useForm({ mode: 'onBlur' })
+    const [logoResume, setLogoResume] = useState(null)
     const inputRef = useRef(null)
     const [pLogo, setPLogo] = useState(null)
+
     return (
         <>
-            <div className="bg-white py-10 px-5 flex flex-col gap-5 justify-center items-center mt-5">
+            <form
+                onSubmit={handleSubmit(data => {
+                    console.log(data)
+                })}
+                className="bg-white py-10 px-5 flex flex-col gap-5 justify-center items-center mt-5"
+            >
                 <img
                     className=" w-[150px] h-[150px] rounded-[50%] border borde"
                     src={!pLogo ? profileLogo : pLogo}
@@ -28,6 +38,12 @@ const EditDataResume = ({ resume, tags }) => {
                     Максимальный размер файла: 2Mb. <br />
                     Рекомендованный размер: 200х200 px.{' '}
                 </span>
+                <input
+                    type="image"
+                    ref={inputRef}
+                    onChange={e => setPLogo(e.target.files[0])}
+                    style={{ display: 'none' }}
+                />
                 <input
                     type="file"
                     accept="img"
@@ -41,7 +57,7 @@ const EditDataResume = ({ resume, tags }) => {
                         Удалить
                     </Link>
                 </div>
-            </div>
+            </form>
             <div className="bg-white py-10 pl-10 pr-48 mt-5">
                 <div className="flex flex-col gap-3">
                     <span className="text-[14px] font-semibold text-primary">Имя *</span>
@@ -49,7 +65,7 @@ const EditDataResume = ({ resume, tags }) => {
                         Может состоять только из букв. Мы не принимаем цифры, спецсимволы и
                         обсценную лексику в этом поле
                     </span>
-                    <Input value={resume.first_name} placeholder="Имя" />
+                    <Input defaultValue={resume.first_name} placeholder="Имя" />
                 </div>
                 <div className="flex flex-col gap-3 mt-10">
                     <span className="text-[14px] font-semibold text-primary">Фамилия *</span>
@@ -57,7 +73,7 @@ const EditDataResume = ({ resume, tags }) => {
                         Может состоять только из букв. Мы не принимаем цифры, спецсимволы и
                         обсценную лексику в этом поле
                     </span>
-                    <Input value={resume.last_name} placeholder="Фамилия" />
+                    <Input defaultValue={resume.last_name} placeholder="Фамилия" />
                 </div>
                 <div className="mt-10 flex flex-col gap-3 w-[50%]">
                     <span className="text-primary text-[14px] font-semibold">Квалификация: </span>
@@ -74,16 +90,21 @@ const EditDataResume = ({ resume, tags }) => {
                         Может состоять только из букв. Мы не принимаем цифры, спецсимволы и
                         обсценную лексику в этом поле
                     </span>
-                    <Input value={resume.phone} placeholder="Телефон" />
+                    <Input defaultValue={resume.phone} placeholder="Телефон" />
                 </div>
                 <div className="flex flex-col gap-3 mt-10">
                     <span className="text-[14px] font-semibold text-primary">Пол *</span>
                     <div className="flex gap-2 items-center">
-                        <input name="sex" type="radio" id="man" checked={resume.sex === 0} />
+                        <input name="sex" type="radio" id="man" defaultChecked={resume.sex === 0} />
                         <label htmlFor="man">Мужской</label>
                     </div>
                     <div className="flex gap-2 items-center">
-                        <input name="sex" type="radio" id="woman" checked={resume.sex === 1} />
+                        <input
+                            name="sex"
+                            type="radio"
+                            id="woman"
+                            defaultChecked={resume.sex === 1}
+                        />
                         <label htmlFor="woman">Женской</label>
                     </div>
                 </div>
